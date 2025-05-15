@@ -1,40 +1,54 @@
-import { useEffect, useState } from "react";
-import empresasData from "../../data/empresa/empresas.json";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Container, Box, Modal } from "@mui/material";
 import Title from "../../components/atoms/Title";
 import EmpresasTable from "../../components/organisms/EmpresasTable";
 import BotonAgregar from "../../components/atoms/BotonAgregar";
-import { Container, Box } from "@mui/material";
+import EmpresaForm from "../../components/molecules/EmpresaForm";
 
 const Empresas = () => {
-  const [empresas, setEmpresas] = useState([]);
+  const empresas = useSelector((state) => state.empresa.lista);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    setEmpresas(empresasData);
-  }, []);
-
-  const handleOpenModal = () => {
-    console.log("Abrir modal");
-  };
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
 
   return (
     <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>
-        <Title text="Listado de Empresas" />
+      <Title text="Listado de Empresas" />
 
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          mt: 4,
+          mb: 1,
+          gap: 1,
+        }}
+      >
+        <BotonAgregar text="Agregar Empresa" onClick={handleOpenModal} />
+      </Box>
+
+      <EmpresasTable empresas={empresas} />
+
+      <Modal open={open} onClose={handleCloseModal}>
         <Box
-            sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                mt: 4,
-                mb: 1,
-                gap: 1,
-            }}
-            >
-            
-            <BotonAgregar text='Agregar Empresa' onClick={handleOpenModal} />
+          sx={{
+            width: 500,
+            p: 4,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <EmpresaForm onClose={handleCloseModal} />
         </Box>
-
-        <EmpresasTable empresas={empresas} />
+      </Modal>
     </Container>
   );
 };

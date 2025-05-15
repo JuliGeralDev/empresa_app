@@ -11,7 +11,7 @@ const BotonAgregar = ({ text, onClick }) => {
         color: "white",
         fontWeight: "bold",
         textTransform: "uppercase",
-        borderRadius: "20px",         // más redondeado
+        borderRadius: "20px",
         px: 2,
         py: 1,
         "&:hover": {
