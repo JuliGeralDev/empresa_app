@@ -1,23 +1,42 @@
-import { useDispatch } from "react-redux";
-import { logout } from "../../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import empresasData from "../../data/empresa/empresas.json";
+import Title from "../../components/atoms/Title";
+import EmpresasTable from "../../components/organisms/EmpresasTable";
+import BotonAgregar from "../../components/atoms/BotonAgregar";
+import { Container, Box } from "@mui/material";
 
-const EmpresasPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const Empresas = () => {
+  const [empresas, setEmpresas] = useState([]);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
+  useEffect(() => {
+    setEmpresas(empresasData);
+  }, []);
+
+  const handleOpenModal = () => {
+    console.log("Abrir modal");
   };
 
   return (
-    <>
-      <h1>Vista de Empresas (Administrador)</h1>
-      <Button variant="outlined" onClick={handleLogout}>Cerrar sesión</Button>
-    </>
+    <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>
+        <Title text="Listado de Empresas" />
+
+        <Box
+            sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                mt: 4,
+                mb: 1,
+                gap: 1,
+            }}
+            >
+            
+            <BotonAgregar text='Agregar Empresa' onClick={handleOpenModal} />
+        </Box>
+
+        <EmpresasTable empresas={empresas} />
+    </Container>
   );
 };
 
-export default EmpresasPage;
+export default Empresas;

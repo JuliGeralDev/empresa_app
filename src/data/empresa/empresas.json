@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "TechCorp",
+    "nit": "900123456",
+    "ciudad": "Bogotá",
+    "sector": "Tecnología"
+  },
+  {
+    "id": 2,
+    "nombre": "AgroIndustrias S.A.",
+    "nit": "800987654",
+    "ciudad": "Medellín",
+    "sector": "Agricultura"
+  }
+]
