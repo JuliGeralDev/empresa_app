@@ -11,10 +11,11 @@ const EmpresaForm = ({ onClose }) => {
   const onSubmit = (data) => {
     const nuevaEmpresa = {
       ...data,
-      id: crypto.randomUUID(), // ID único temporal
+      id: crypto.randomUUID(), // ID único si no tienes backend
     };
 
     dispatch(agregarEmpresa(nuevaEmpresa));
+    
     reset();
     onClose();
   };
