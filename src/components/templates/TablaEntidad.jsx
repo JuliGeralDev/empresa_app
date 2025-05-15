@@ -12,7 +12,7 @@ import BotonEditar from "../atoms/BotonEditar";
 import BotonEliminar from "../atoms/BotonEliminar";
 import { useSelector } from "react-redux";
 
-const TablaEntidad = ({ titulos, filas, onEditar, onEliminar }) => {
+const TablaEntidad = ({ columnas, filas, onEditar, onEliminar }) => {
   const user = useSelector((state) => state.auth.user);
   const esAdmin = user?.role === "admin";
 
@@ -21,20 +21,22 @@ const TablaEntidad = ({ titulos, filas, onEditar, onEliminar }) => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table >
+    <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+      <Table sx={{ minWidth: 800 }}>
         <TableHead>
           <TableRow sx={{ backgroundColor: (theme) => theme.palette.primary.main }}>
-            {titulos.map((titulo) => (
+            {columnas.map((col) => (
               <TableCell
-                key={titulo}
+                key={col.key}
                 sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}
               >
-                {titulo}
+                {col.label}
               </TableCell>
             ))}
             {esAdmin && (
-              <TableCell sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}>
+              <TableCell
+                sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}
+              >
                 Acciones
               </TableCell>
             )}
@@ -44,8 +46,8 @@ const TablaEntidad = ({ titulos, filas, onEditar, onEliminar }) => {
         <TableBody>
           {filas.map((fila, index) => (
             <TableRow key={index}>
-              {titulos.map((titulo) => (
-                <TableCell key={titulo}>{fila[titulo]}</TableCell>
+              {columnas.map((col) => (
+                <TableCell key={col.key}>{fila[col.key]}</TableCell>
               ))}
               {esAdmin && (
                 <TableCell>

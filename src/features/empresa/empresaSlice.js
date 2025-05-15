@@ -27,7 +27,7 @@ const empresaSlice = createSlice({
     },
     editarEmpresa: (state, action) => {
       const empresaEditada = action.payload;
-      const index = state.lista.findIndex(emp => emp.id === empresaEditada.id);
+      const index = state.lista.findIndex(emp => emp.nit === empresaEditada.nit);
       if (index !== -1) {
         state.lista[index] = empresaEditada;
         localStorage.setItem("empresas", JSON.stringify(state.lista));
@@ -35,7 +35,7 @@ const empresaSlice = createSlice({
     },
     eliminarEmpresa: (state, action) => {
       const id = action.payload;
-      state.lista = state.lista.filter((empresa) => empresa.id !== id);
+      state.lista = state.lista.filter((empresa) => empresa.nit !== id);
       localStorage.setItem("empresas", JSON.stringify(state.lista));
     },
   },

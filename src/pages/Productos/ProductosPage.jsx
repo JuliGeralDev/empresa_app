@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Box, Modal } from "@mui/material";
+
 import Title from "../../components/atoms/Title";
+import TablaEntidad from "../../components/templates/TablaEntidad";
 import BotonAgregar from "../../components/atoms/BotonAgregar";
 import ProductoForm from "../../components/molecules/ProductoForm";
 import DialogConfirmacion from "../../components/molecules/DialogConfirmacion";
-import TablaEntidad from "../../components/templates/TablaEntidad";
+
 import { eliminarProducto } from "../../features/producto/productoSlice";
 
 const ProductosPage = () => {
   const productos = useSelector((state) => state.producto.lista);
+  const empresas = useSelector((state) => state.empresa.lista);
   const user = useSelector((state) => state.auth.user);
-  const esAdmin = user?.role === "admin";
-
   const dispatch = useDispatch();
 
   const [productoEditando, setProductoEditando] = useState(null);
@@ -42,28 +43,44 @@ const ProductosPage = () => {
     setProductoEliminar(null);
   };
 
-  const titulos = ["Código", "Nombre", "Características", "Precios", "Empresa"];
-  const filas = productos.map((prod) => ({
-    id: prod.id,
-    Código: prod.codigo,
-    Nombre: prod.nombre,
-    Características: prod.caracteristicas,
-    Precios: `COP: $${prod.precios.COP} | USD: $${prod.precios.USD} | EUR: €${prod.precios.EUR}`,
-    Empresa: prod.empresa,
-  }));
+  const columnas = [
+    { label: "Código", key: "codigo" },
+    { label: "Nombre", key: "nombre" },
+    { label: "Características", key: "caracteristicas" },
+    { label: "Precios", key: "preciosFormateados" },
+    { label: "Empresa", key: "empresaNombre" }
+  ];
+
+  const filas = productos.map((producto) => {
+    const empresa = empresas.find((e) => e.nit === producto.empresa);
+    return {
+      ...producto,
+      preciosFormateados: `COP: $${producto.precios.COP}, USD: $${producto.precios.USD}, EUR: €${producto.precios.EUR}`,
+      empresaNombre: empresa?.nombre || producto.empresa,
+    };
+  });
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 5, mb: 8 }}>
+    <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>
       <Title text="Listado de Productos" />
 
-      {esAdmin && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+      {user?.role === "admin" && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            mt: 4,
+            mb: 1,
+            gap: 1,
+          }}
+        >
           <BotonAgregar text="Agregar Producto" onClick={handleOpenModal} />
         </Box>
       )}
 
       <TablaEntidad
-        titulos={titulos}
+        columnas={columnas}
         filas={filas}
         onEditar={handleOpenModal}
         onEliminar={handleEliminar}
@@ -73,7 +90,7 @@ const ProductosPage = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onConfirm={confirmarEliminacion}
-        id={productoEliminar?.id}
+        id={productoEliminar?.nit}
         title="Eliminar producto"
         message="¿Estás segura de que deseas eliminar el producto"
         itemName={productoEliminar?.nombre}
@@ -93,7 +110,11 @@ const ProductosPage = () => {
             transform: "translate(-50%, -50%)",
           }}
         >
-          <ProductoForm onClose={handleCloseModal} initialData={productoEditando} />
+          <ProductoForm
+            key={productoEditando?.id || "nuevo"}
+            onClose={handleCloseModal}
+            initialData={productoEditando}
+          />
         </Box>
       </Modal>
     </Container>
