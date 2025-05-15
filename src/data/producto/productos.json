@@ -1,0 +1,38 @@
+[
+  {
+    "id": "producto-1",
+    "codigo": "P001",
+    "nombre": "GPS Satelital",
+    "caracteristicas": "Pantalla de 5 pulgadas, recarga solar",
+    "precios": {
+      "COP": 150000,
+      "USD": 40,
+      "EUR": 37
+    },
+    "empresa": "900123456"
+  },
+  {
+    "id": "producto-2",
+    "codigo": "P002",
+    "nombre": "Silla para bebé",
+    "caracteristicas": "Norma europea, ajustable a 3 posiciones",
+    "precios": {
+      "COP": 80000,
+      "USD": 20,
+      "EUR": 18
+    },
+    "empresa": "900123456"
+  },
+  {
+    "id": "producto-3",
+    "codigo": "P003",
+    "nombre": "WiFi Portátil",
+    "caracteristicas": "4G LTE, 10 usuarios simultáneos",
+    "precios": {
+      "COP": 120000,
+      "USD": 30,
+      "EUR": 27
+    },
+    "empresa": "800987654"
+  }
+]

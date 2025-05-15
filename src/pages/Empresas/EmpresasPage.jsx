@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Container, Box, Modal } from "@mui/material";
 import Title from "../../components/atoms/Title";
-import EmpresasTable from "../../components/organisms/EmpresasTable";
+import TablaEntidad from "../../components/templates/TablaEntidad";
 import BotonAgregar from "../../components/atoms/BotonAgregar";
 import EmpresaForm from "../../components/molecules/EmpresaForm";
 import DialogConfirmacion from "../../components/molecules/DialogConfirmacion";
@@ -64,11 +64,20 @@ const Empresas = () => {
         )}
 
 
-        <EmpresasTable
-            empresas={empresas}
+        <TablaEntidad
+            titulos={["NIT", "Nombre", "Dirección", "Ciudad", "Sector"]}
+            filas={empresas.map((empresa) => ({
+                id: empresa.id,
+                NIT: empresa.nit,
+                Nombre: empresa.nombre,
+                Dirección: empresa.direccion,
+                Ciudad: empresa.ciudad,
+                Sector: empresa.sector,
+            }))}
             onEditar={handleOpenModal}
             onEliminar={handleEliminar}
         />
+
 
         <DialogConfirmacion
             open={dialogOpen}
