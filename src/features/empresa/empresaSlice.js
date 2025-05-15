@@ -33,9 +33,13 @@ const empresaSlice = createSlice({
         localStorage.setItem("empresas", JSON.stringify(state.lista));
       }
     },
-
+    eliminarEmpresa: (state, action) => {
+      const id = action.payload;
+      state.lista = state.lista.filter((empresa) => empresa.id !== id);
+      localStorage.setItem("empresas", JSON.stringify(state.lista));
+    },
   },
 });
 
-export const { agregarEmpresa, editarEmpresa } = empresaSlice.actions;
+export const { agregarEmpresa, editarEmpresa, eliminarEmpresa } = empresaSlice.actions;
 export default empresaSlice.reducer;

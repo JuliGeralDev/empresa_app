@@ -12,7 +12,7 @@ function App() {
             path={path}
             element={
               isProtected ? (
-                <ProtectedRoute role={role}>
+                <ProtectedRoute  roles={["admin", "externo"]}>
                   <Component />
                 </ProtectedRoute>
               ) : (

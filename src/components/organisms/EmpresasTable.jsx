@@ -8,13 +8,16 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import BotonEditar from "../atoms/BotonEditar";
 import BotonEliminar from "../atoms/BotonEliminar";
 
 const titulos = ["NIT", "Nombre", "Dirección", "Ciudad", "Sector"];
 
-const EmpresasTable = ({ empresas, onEditar }) => {
+const EmpresasTable = ({ empresas, onEditar, onEliminar }) => {
+  const user = useSelector((state) => state.auth.user);
+  const esAdmin = user?.role === "admin";
 
   if (empresas.length === 0) {
     return <Typography>No hay empresas registradas.</Typography>;
@@ -26,19 +29,25 @@ const EmpresasTable = ({ empresas, onEditar }) => {
         <TableHead>
           <TableRow sx={{ backgroundColor: (theme) => theme.palette.primary.main }}>
             {titulos.map((titulo) => (
-              <TableCell key={titulo} sx={{ color: "white", fontWeight: "bold" , textTransform: "uppercase"}}>
+              <TableCell
+                key={titulo}
+                sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}
+              >
                 {titulo}
               </TableCell>
             ))}
-            <TableCell sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}>
-              Acciones
-            </TableCell>
+            {esAdmin && (
+              <TableCell
+                sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}
+              >
+                Acciones
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
 
         <TableBody>
           {empresas.map((empresa) => {
-
             const rowData = {
               "NIT": empresa.nit,
               "Nombre": empresa.nombre,
@@ -52,10 +61,12 @@ const EmpresasTable = ({ empresas, onEditar }) => {
                 {titulos.map((titulo) => (
                   <TableCell key={titulo}>{rowData[titulo]}</TableCell>
                 ))}
-                <TableCell>
-                  <BotonEditar onClick={() => onEditar(empresa)} />
-                  <BotonEliminar onClick={() => {}} />
-                </TableCell>
+                {esAdmin && (
+                  <TableCell>
+                    <BotonEditar onClick={() => onEditar(empresa)} />
+                    <BotonEliminar onClick={() => onEliminar(empresa)} />
+                  </TableCell>
+                )}
               </TableRow>
             );
           })}

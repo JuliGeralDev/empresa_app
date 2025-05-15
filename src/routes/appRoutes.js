@@ -1,5 +1,4 @@
 import EmpresasPage from "../pages/Empresas/EmpresasPage";
-import EmpresasVisitante from "../pages/Empresas/EmpresasVisitante";
 import LoginPage from "../pages/Login/LoginPage";
 
 export const appRoutes = [
@@ -13,11 +12,5 @@ export const appRoutes = [
     component: EmpresasPage,
     protected: true,
     role: "admin",
-  },
-  {
-    path: "/empresas/visitante",
-    component: EmpresasVisitante,
-    protected: true,
-    role: "externo",
   },
 ];

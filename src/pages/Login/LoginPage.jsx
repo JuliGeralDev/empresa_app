@@ -24,7 +24,7 @@ const LoginPage = () => {
     const user = users.find((u) => u.email === data.email);
     if (user && (await comparePasswords(data.password, user.password))) {
       dispatch(login({ email: user.email, role: user.role }));
-      navigate(user.role === "admin" ? "/empresas" : "/empresas/visitante");
+      navigate("/empresas");
     } else {
       alert("Credenciales inválidas");
     }
