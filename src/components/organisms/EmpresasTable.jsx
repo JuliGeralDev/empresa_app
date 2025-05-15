@@ -12,9 +12,10 @@ import {
 import BotonEditar from "../atoms/BotonEditar";
 import BotonEliminar from "../atoms/BotonEliminar";
 
-const titulos = ["NIT", "Nombre", "Ciudad", "Sector"];
+const titulos = ["NIT", "Nombre", "Dirección", "Ciudad", "Sector"];
 
-const EmpresasTable = ({ empresas }) => {
+const EmpresasTable = ({ empresas, onEditar }) => {
+
   if (empresas.length === 0) {
     return <Typography>No hay empresas registradas.</Typography>;
   }
@@ -37,9 +38,11 @@ const EmpresasTable = ({ empresas }) => {
 
         <TableBody>
           {empresas.map((empresa) => {
+
             const rowData = {
               "NIT": empresa.nit,
               "Nombre": empresa.nombre,
+              "Dirección": empresa.direccion,
               "Ciudad": empresa.ciudad,
               "Sector": empresa.sector,
             };
@@ -50,7 +53,7 @@ const EmpresasTable = ({ empresas }) => {
                   <TableCell key={titulo}>{rowData[titulo]}</TableCell>
                 ))}
                 <TableCell>
-                  <BotonEditar onClick={() => {}} />
+                  <BotonEditar onClick={() => onEditar(empresa)} />
                   <BotonEliminar onClick={() => {}} />
                 </TableCell>
               </TableRow>

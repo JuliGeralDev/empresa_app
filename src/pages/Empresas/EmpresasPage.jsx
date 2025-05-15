@@ -7,50 +7,59 @@ import BotonAgregar from "../../components/atoms/BotonAgregar";
 import EmpresaForm from "../../components/molecules/EmpresaForm";
 
 const Empresas = () => {
-  const empresas = useSelector((state) => state.empresa.lista);
-  const [open, setOpen] = useState(false);
+    const empresas = useSelector((state) => state.empresa.lista);
+    const [empresaEditando, setEmpresaEditando] = useState(null);
+    const [open, setOpen] = useState(false);
 
-  const handleOpenModal = () => setOpen(true);
-  const handleCloseModal = () => setOpen(false);
+    const handleOpenModal = (empresa = null) => {
+        setEmpresaEditando(empresa);
+        setOpen(true);
+    };
 
-  return (
-    <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>
-      <Title text="Listado de Empresas" />
+    const handleCloseModal = () => {
+        setOpen(false);
+        setEmpresaEditando(null);
+    };
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          mt: 4,
-          mb: 1,
-          gap: 1,
-        }}
-      >
-        <BotonAgregar text="Agregar Empresa" onClick={handleOpenModal} />
-      </Box>
 
-      <EmpresasTable empresas={empresas} />
+    return (
+        <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>
+        <Title text="Listado de Empresas" />
 
-      <Modal open={open} onClose={handleCloseModal}>
         <Box
-          sx={{
-            width: 500,
-            p: 4,
-            bgcolor: "background.paper",
-            borderRadius: 2,
-            boxShadow: 24,
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
+            sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            mt: 4,
+            mb: 1,
+            gap: 1,
+            }}
         >
-          <EmpresaForm onClose={handleCloseModal} />
+            <BotonAgregar text="Agregar Empresa" onClick={handleOpenModal} />
         </Box>
-      </Modal>
-    </Container>
-  );
+
+        <EmpresasTable empresas={empresas} onEditar={handleOpenModal} />
+
+        <Modal open={open} onClose={handleCloseModal}>
+            <Box
+            sx={{
+                width: 500,
+                p: 4,
+                bgcolor: "background.paper",
+                borderRadius: 2,
+                boxShadow: 24,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            }}
+            >
+             <EmpresaForm onClose={handleCloseModal} initialData={empresaEditando} />  
+            </Box>
+        </Modal>
+        </Container>
+    );
 };
 
 export default Empresas;
