@@ -73,7 +73,7 @@ const Empresas = () => {
             gap: 1,
           }}
         >
-          <BotonAgregar text="Agregar Empresa" onClick={handleOpenModal} />
+          <BotonAgregar text="Agregar Empresa" onClick={() => handleOpenModal(null)} />
         </Box>
       )}
 
