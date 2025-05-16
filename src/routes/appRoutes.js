@@ -7,26 +7,29 @@
     {
       path: "/",
       component: LoginPage,
+      name: "Inicio de sesión",
       protected: false,
     },
     {
       path: "/empresas",
       component: EmpresasPage,
+      name: "Empresas",
       protected: true,
       role: ["admin", "externo"],
     },
     {
       path: "/productos",
       component: ProductosPage,
+      name: "Productos",
       protected: true,
       role: ["admin"],
     },
     {
       path: "/inventario",
       component: InventarioPage,
+      name: "Inventario",
       protected: true,
       role: ["admin"],
     },
   ];
-
 
