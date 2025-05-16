@@ -1,6 +1,7 @@
 import EmpresasPage from "../pages/Empresas/EmpresasPage";
 import LoginPage from "../pages/Login/LoginPage";
 import ProductosPage from "../pages/Productos/ProductosPage";
+import InventarioPage from "../pages/Inventario/InventarioPage";
 
 export const appRoutes = [
   {
@@ -17,6 +18,12 @@ export const appRoutes = [
   {
     path: "/productos",
     component: ProductosPage,
+    protected: true,
+    role: ["admin"],
+  },
+  {
+    path: "/inventario",
+    component: InventarioPage,
     protected: true,
     role: ["admin"],
   },
