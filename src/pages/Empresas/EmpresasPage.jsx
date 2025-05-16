@@ -50,6 +50,7 @@ const Empresas = () => {
     { label: "NIT", key: "nit" },
     { label: "Nombre", key: "nombre" },
     { label: "Dirección", key: "direccion" },
+    { label: "Teléfono", key: "telefono" },
     { label: "Ciudad", key: "ciudad" },
     { label: "Sector", key: "sector" }
   ];

@@ -39,6 +39,7 @@ const EmpresaForm = ({ onClose, initialData = null }) => {
       <TextField label="NIT" fullWidth {...register("nit")} required />
       <TextField label="Nombre" fullWidth {...register("nombre")} required />
       <TextField label="Dirección" fullWidth {...register("direccion")} required />
+      <TextField label="Teléfono" fullWidth {...register("telefono")} required />
       <TextField label="Ciudad" fullWidth {...register("ciudad")} required />
       <TextField label="Sector" fullWidth {...register("sector")} required />
       <BotonGuardar />

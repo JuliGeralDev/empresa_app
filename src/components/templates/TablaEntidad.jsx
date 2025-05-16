@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 const TablaEntidad = ({ columnas, filas, onEditar, onEliminar }) => {
   const user = useSelector((state) => state.auth.user);
   const esAdmin = user?.role === "admin";
-
+  
   if (!filas || filas.length === 0) {
     return <Typography>No hay registros disponibles.</Typography>;
   }

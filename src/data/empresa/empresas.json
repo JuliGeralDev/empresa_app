@@ -3,6 +3,7 @@
     "nombre": "TechCorp",
     "nit": "900123456",
     "direccion": "Calle 123 #45-67",
+    "telefono": "123456789",
     "ciudad": "Bogotá",
     "sector": "Tecnología"
   },
@@ -10,6 +11,7 @@
     "nombre": "AgroIndustrias S.A.",
     "nit": "800987654",
     "direccion": "Carrera 45 #12-34",
+    "telefono": "123456789",
     "ciudad": "Medellín",
     "sector": "Agricultura"
   }
