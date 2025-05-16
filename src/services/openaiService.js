@@ -10,7 +10,7 @@ export const generarDescripcion = async (nombreProducto) => {
       },
       body: JSON.stringify({
         model: "command", // También puedes usar "command-light" para una versión más ligera
-        prompt: `Genera una breve y atractiva descripción para un producto llamado "${nombreProducto}".`,
+        prompt: `Genera en español una breve y atractiva descripción (máximo 50 caracteres) para un producto llamado "${nombreProducto}".`,
         max_tokens: 50,
         temperature: 0.8,
       }),
