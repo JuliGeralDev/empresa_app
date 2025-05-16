@@ -12,9 +12,22 @@ import BotonEditar from "../atoms/BotonEditar";
 import BotonEliminar from "../atoms/BotonEliminar";
 import { useSelector } from "react-redux";
 
+/**
+ * Componente genérico de tabla reutilizable para mostrar entidades como empresas, productos o inventario.
+ * 
+ * Muestra los datos en una tabla configurable con columnas dinámicas.
+ * Incluye botones de edición y eliminación solo si el usuario autenticado tiene rol de "admin".
+ *
+ * @component
+ * @param {Array<Object>} columnas - Arreglo de objetos que definen las columnas. Cada objeto debe tener `key` y `label`.
+ * @param {Array<Object>} filas - Arreglo de objetos que representan los datos a renderizar.
+ * @param {Function} onEditar - Función callback al hacer clic en el botón de editar. Recibe como argumento la fila seleccionada.
+ * @param {Function} onEliminar - Función callback al hacer clic en el botón de eliminar. Recibe como argumento la fila seleccionada.
+ * 
+ */
 const TablaEntidad = ({ columnas, filas, onEditar, onEliminar }) => {
   const user = useSelector((state) => state.auth.user);
-  const esAdmin = user?.role === "admin";
+  const isAdmin = user?.role === "admin";
   
   if (!filas || filas.length === 0) {
     return <Typography>No hay registros disponibles.</Typography>;
@@ -33,7 +46,7 @@ const TablaEntidad = ({ columnas, filas, onEditar, onEliminar }) => {
                 {col.label}
               </TableCell>
             ))}
-            {esAdmin && (
+            {isAdmin && (
               <TableCell
                 sx={{ color: "white", fontWeight: "bold", textTransform: "uppercase" }}
               >
@@ -49,7 +62,7 @@ const TablaEntidad = ({ columnas, filas, onEditar, onEliminar }) => {
               {columnas.map((col) => (
                 <TableCell key={col.key}>{fila[col.key]}</TableCell>
               ))}
-              {esAdmin && (
+              {isAdmin && (
                 <TableCell>
                   <BotonEditar onClick={() => onEditar(fila)} />
                   <BotonEliminar onClick={() => onEliminar(fila)} />

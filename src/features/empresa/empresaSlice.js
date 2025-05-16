@@ -3,7 +3,12 @@ import dataInicial from "../../data/empresa/empresas.json";
 
 const STORAGE_KEY = "empresas";
 
-// Obtener empresas del localStorage o del JSON inicial
+/**
+ * Carga la lista de empresas desde localStorage si existe.
+ * Si no hay datos guardados, inicializa localStorage con datos por defecto.
+ *
+ * @returns {Array} Lista de empresas
+ */
 const cargarEmpresas = () => {
   const guardadas = localStorage.getItem(STORAGE_KEY);
   if (guardadas) return JSON.parse(guardadas);

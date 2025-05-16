@@ -16,7 +16,7 @@ import {
   agregarProducto,
   editarProducto,
 } from "../../features/producto/productoSlice";
-import { generarDescripcion } from "../../services/openaiService";
+import { generarDescripcion } from "../../services/cohereService";
 
 const ProductoForm = ({ onClose, initialData = null }) => {
   const empresas = useSelector((state) => state.empresa.lista);
@@ -94,6 +94,7 @@ const ProductoForm = ({ onClose, initialData = null }) => {
             },
           }}
         />
+        {/* Genera una breve descripcion del producto con IA */}
         <BotonIA onClick={handleGenerarDescripcion} loading={cargandoIA} />
       </Box>
 

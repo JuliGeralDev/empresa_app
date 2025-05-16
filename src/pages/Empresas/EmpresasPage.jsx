@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Container, Box, Modal } from "@mui/material";
 
 import Title from "../../components/atoms/Title";
@@ -8,12 +7,12 @@ import BotonAgregar from "../../components/atoms/BotonAgregar";
 import EmpresaForm from "../../components/molecules/EmpresaForm";
 import DialogConfirmacion from "../../components/molecules/DialogConfirmacion";
 
-import { eliminarEmpresa } from "../../features/empresa/empresaSlice";
+import useEmpresas from "../../hooks/useEmpresas";
+import { useSelector } from "react-redux"; // solo para acceder al user
 
 const Empresas = () => {
-  const empresas = useSelector((state) => state.empresa.lista);
+  const { empresas, eliminar } = useEmpresas();
   const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
 
   const [empresaEditando, setEmpresaEditando] = useState(null);
   const [open, setOpen] = useState(false);
@@ -37,11 +36,10 @@ const Empresas = () => {
   };
 
   const confirmarEliminacion = () => {
-      
-      if (empresaEliminar) {
-        dispatch(eliminarEmpresa(empresaEliminar.nit));
-        console.log("Eliminando empresa:", empresaEliminar);
-        setEmpresaEliminar(null);
+    if (empresaEliminar) {
+      eliminar(empresaEliminar.nit);
+      console.log("Eliminando empresa:", empresaEliminar);
+      setEmpresaEliminar(null);
     }
     setDialogOpen(false);
   };
@@ -52,12 +50,10 @@ const Empresas = () => {
     { label: "Dirección", key: "direccion" },
     { label: "Teléfono", key: "telefono" },
     { label: "Ciudad", key: "ciudad" },
-    { label: "Sector", key: "sector" }
+    { label: "Sector", key: "sector" },
   ];
 
-  const filas = empresas.map((empresa) => ({
-    ...empresa,
-  }));
+  const filas = empresas.map((empresa) => ({ ...empresa }));
 
   return (
     <Container maxWidth="md" sx={{ mt: 5, mb: 8 }}>

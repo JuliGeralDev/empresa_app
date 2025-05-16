@@ -1,14 +1,20 @@
 import { Box, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import BotonGuardar from "../atoms/BotonGuardar";
-import { useDispatch } from "react-redux";
-import { agregarEmpresa } from "../../features/empresa/empresaSlice";
+import useEmpresas from "../../hooks/useEmpresas";
 import { useEffect } from "react";
-import { editarEmpresa } from "../../features/empresa/empresaSlice";
-
+/**
+ * Formulario reutilizable para crear o editar una empresa.
+ *
+ * @param {Function} onClose - Cierra el formulario después de guardar.
+ * @param {Object|null} initialData - Datos de empresa a editar (si existen).
+ *
+ * Usa react-hook-form para manejo de inputs.
+ * Dispara acciones de Redux: agregarEmpresa o editarEmpresa.
+ */
 const EmpresaForm = ({ onClose, initialData = null }) => {
   const { register, handleSubmit, reset } = useForm();
-  const dispatch = useDispatch();
+  const { crear, actualizar } = useEmpresas();
 
   useEffect(() => {
     if (initialData) {
@@ -20,11 +26,9 @@ const EmpresaForm = ({ onClose, initialData = null }) => {
     const empresa = { ...data };
 
     if (initialData) {
-      console.log("Editando empresa:", initialData);
-      dispatch(editarEmpresa(empresa));
+      actualizar(empresa);
     } else {
-      console.log("Agregando empresa:", empresa);
-      dispatch(agregarEmpresa(empresa));
+      crear(empresa);
     }
 
     reset();

@@ -13,7 +13,7 @@
   {
     "codigo": "P002",
     "nombre": "Silla para bebé",
-    "caracteristicas": "Norma europea, ajustable a 3 posiciones",
+    "caracteristicas": "Norma europea, ajustable a 3 posiciones, comodidad garantizada",
     "precios": {
       "COP": 80000,
       "USD": 20,
@@ -24,7 +24,7 @@
   {
     "codigo": "P003",
     "nombre": "WiFi Portátil",
-    "caracteristicas": "4G LTE, 10 usuarios simultáneos",
+    "caracteristicas": "4G LTE, 10 usuarios simultáneos maaxima cobertura",
     "precios": {
       "COP": 120000,
       "USD": 30,

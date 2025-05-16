@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
+/**
+ * Obtiene el usuario guardado desde localStorage (si existe).
+ * Se usa para inicializar el estado de autenticación al cargar la app.
+ *
+ * @returns {Object|null} Usuario autenticado o null si no hay sesión guardada.
+ */
 const getInitialUser = () => {
   try {
     const savedUser = localStorage.getItem("user");
