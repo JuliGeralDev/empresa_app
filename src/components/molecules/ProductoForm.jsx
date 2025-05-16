@@ -8,19 +8,24 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import BotonGuardar from "../atoms/BotonGuardar";
+import BotonIA from "../atoms/BotonIA";
 import {
   agregarProducto,
   editarProducto,
 } from "../../features/producto/productoSlice";
+import { generarDescripcion } from "../../services/openaiService";
 
 const ProductoForm = ({ onClose, initialData = null }) => {
   const empresas = useSelector((state) => state.empresa.lista);
   const dispatch = useDispatch();
+  const [cargandoIA, setCargandoIA] = useState(false);
 
-  const { register, handleSubmit, reset, control } = useForm();
+  const { register, handleSubmit, reset, setValue, watch, control } = useForm();
+
+  const nombreProducto = watch("nombre");
 
   useEffect(() => {
     if (initialData) {
@@ -60,6 +65,14 @@ const ProductoForm = ({ onClose, initialData = null }) => {
     onClose();
   };
 
+  const handleGenerarDescripcion = async () => {
+    if (!nombreProducto) return;
+    setCargandoIA(true);
+    const descripcion = await generarDescripcion(nombreProducto);
+    setValue("caracteristicas", descripcion);
+    setCargandoIA(false);
+  };
+
   return (
     <Box
       component="form"
@@ -68,12 +81,22 @@ const ProductoForm = ({ onClose, initialData = null }) => {
     >
       <TextField label="Código" {...register("codigo")} required fullWidth />
       <TextField label="Nombre" {...register("nombre")} required fullWidth />
-      <TextField
-        label="Características"
-        {...register("caracteristicas")}
-        required
-        fullWidth
-      />
+
+      <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+        <TextField
+          label="Características"
+          {...register("caracteristicas")}
+          required
+          fullWidth
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
+          }}
+        />
+        <BotonIA onClick={handleGenerarDescripcion} loading={cargandoIA} />
+      </Box>
+
       <TextField
         label="Precio COP"
         {...register("cop")}
