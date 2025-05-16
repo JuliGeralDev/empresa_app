@@ -10,9 +10,9 @@ export const generarDescripcion = async (nombreProducto) => {
       },
       body: JSON.stringify({
         model: "command",
-        prompt: `Genera en español una breve y atractiva descripción (máximo 50 caracteres) para un producto llamado "${nombreProducto}".`,
+        prompt: `Responde exclusivamente en español. Escribe una breve descripción natural y profesional para un producto llamado "${nombreProducto}". Usa máximo 50 palabras.`,
         max_tokens: 50,
-        temperature: 0.8,
+        temperature: 0.5,
       }),
     });
 

@@ -88,11 +88,15 @@ const ProductoForm = ({ onClose, initialData = null }) => {
           {...register("caracteristicas")}
           required
           fullWidth
+          multiline
+          minRows={3}
+          maxRows={6}
+          sx={{ resize: "vertical" }}
           slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
-          }}
+          inputLabel: {
+            shrink: true,
+          },
+        }}
         />
         {/* Genera una breve descripcion del producto con IA */}
         <BotonIA onClick={handleGenerarDescripcion} loading={cargandoIA} />
