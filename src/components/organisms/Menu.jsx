@@ -53,14 +53,14 @@ const Menu = () => {
         {/* Enlaces del admin */}
         <Box sx={{ display: "flex", gap: 2, ml: 2 }}>
           {user.role === "admin" &&
-            adminLinks.map(({ path, component }) => (
+            adminLinks.map(({ path, name }) => (
               <Button
                 key={path}
                 component={Link}
                 to={path}
                 sx={linkStyle}
               >
-                {component.name.replace("Page", "")}
+                {name}
               </Button>
             ))}
         </Box>
