@@ -2,6 +2,9 @@
 
 Aplicación de gestión de empresas, productos e inventario desarrollada con **React 19**, **Redux Toolkit**, **Material UI** y **Vite**. Este proyecto aplica principios de diseño atómico para crear componentes reutilizables, utiliza `localStorage` para persistencia y se apoya en **inteligencia artificial (Cohere)** para generar descripciones automáticas de productos.
 
+## 🔗 Live Preview
+
+[👉 View the Demo on Netlify](https://empresa-app-juligeraldev.netlify.app/)
 
 ## 🧱 Estructura del Proyecto
 

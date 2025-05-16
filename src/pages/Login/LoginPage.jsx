@@ -1,10 +1,10 @@
-// src/pages/Login/LoginPage.jsx
 import { useForm } from "react-hook-form";
 import { users } from "../../data/login/users";
 import { comparePasswords } from "../../utils/encrypt";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import {
   Container,
@@ -19,6 +19,14 @@ const LoginPage = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
+  // Redirige automáticamente si ya hay usuario logueado
+  useEffect(() => {
+    if (user) {
+      navigate("/empresas");
+    }
+  }, [user, navigate]);
 
   const onSubmit = async (data) => {
     const user = users.find((u) => u.email === data.email);
