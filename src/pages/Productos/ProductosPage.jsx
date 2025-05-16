@@ -90,7 +90,7 @@ const ProductosPage = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onConfirm={confirmarEliminacion}
-        id={productoEliminar?.codigo} // ✅ ahora usamos codigo
+        id={productoEliminar?.codigo} 
         title="Eliminar producto"
         message="¿Estás segura de que deseas eliminar el producto"
         itemName={productoEliminar?.nombre}
