@@ -1,23 +1,39 @@
-import { Box, TextField, InputLabel, MenuItem, FormControl, Select, Chip, OutlinedInput } from "@mui/material";
+import {
+  Box,
+  TextField,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import BotonGuardar from "../atoms/BotonGuardar";
 import { useDispatch, useSelector } from "react-redux";
-import { agregarProducto, editarProducto } from "../../features/producto/productoSlice";
 import { useEffect } from "react";
 
-const ProductoForm = ({ onClose, initialData = null }) => {
-  const dispatch = useDispatch();
-  const empresas = useSelector((state) => state.empresa.lista);
+import BotonGuardar from "../atoms/BotonGuardar";
+import {
+  agregarProducto,
+  editarProducto,
+} from "../../features/producto/productoSlice";
 
-  const { register, handleSubmit, reset, control, setValue } = useForm();
+const ProductoForm = ({ onClose, initialData = null }) => {
+  const empresas = useSelector((state) => state.empresa.lista);
+  const dispatch = useDispatch();
+
+  const { register, handleSubmit, reset, control } = useForm();
 
   useEffect(() => {
     if (initialData) {
-      Object.entries(initialData).forEach(([key, value]) => {
-        setValue(key, value);
-      });
+      const data = {
+        ...initialData,
+        cop: initialData.precios?.COP,
+        usd: initialData.precios?.USD,
+        eur: initialData.precios?.EUR,
+        empresa: initialData.empresa,
+      };
+      reset(data);
     }
-  }, [initialData, setValue]);
+  }, [initialData, reset]);
 
   const onSubmit = (data) => {
     const producto = {
@@ -45,38 +61,56 @@ const ProductoForm = ({ onClose, initialData = null }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <TextField label="Código" {...register("codigo")} required />
-      <TextField label="Nombre" {...register("nombre")} required />
-      <TextField label="Características" {...register("caracteristicas")} required />
-      <TextField label="Precio COP" {...register("cop")} type="number" required />
-      <TextField label="Precio USD" {...register("usd")} type="number" required />
-      <TextField label="Precio EUR" {...register("eur")} type="number" required />
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+    >
+      <TextField label="Código" {...register("codigo")} required fullWidth />
+      <TextField label="Nombre" {...register("nombre")} required fullWidth />
+      <TextField
+        label="Características"
+        {...register("caracteristicas")}
+        required
+        fullWidth
+      />
+      <TextField
+        label="Precio COP"
+        {...register("cop")}
+        type="number"
+        required
+        fullWidth
+      />
+      <TextField
+        label="Precio USD"
+        {...register("usd")}
+        type="number"
+        required
+        fullWidth
+      />
+      <TextField
+        label="Precio EUR"
+        {...register("eur")}
+        type="number"
+        required
+        fullWidth
+      />
 
-      <FormControl fullWidth>
-        <InputLabel>Empresas</InputLabel>
+      <FormControl fullWidth required>
+        <InputLabel>Empresa</InputLabel>
         <Controller
-          name="empresas"
+          name="empresa"
           control={control}
-          defaultValue={[]}
           render={({ field }) => (
             <Select
-              multiple
-              input={<OutlinedInput label="Empresas" />}
-              value={field.value || []}
+              label="Empresa"
+              {...field}
+              value={field.value || ""}
               onChange={(e) => field.onChange(e.target.value)}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((id) => {
-                    const empresa = empresas.find((e) => e.id === id);
-                    return <Chip key={id} label={empresa?.nombre || id} />;
-                  })}
-                </Box>
-              )}
             >
-              {empresas.map((empresa) => (
-                <MenuItem key={empresa.id} value={empresa.id}>
-                  {empresa.nombre}
+              {empresas.map((e) => (
+                <MenuItem key={e.nit} value={e.nit}>
+                  {e.nombre}
                 </MenuItem>
               ))}
             </Select>

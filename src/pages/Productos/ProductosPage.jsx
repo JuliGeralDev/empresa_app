@@ -37,8 +37,8 @@ const ProductosPage = () => {
     setDialogOpen(true);
   };
 
-  const confirmarEliminacion = (id) => {
-    dispatch(eliminarProducto(id));
+  const confirmarEliminacion = (codigo) => {
+    dispatch(eliminarProducto(codigo));
     setDialogOpen(false);
     setProductoEliminar(null);
   };
@@ -75,7 +75,7 @@ const ProductosPage = () => {
             gap: 1,
           }}
         >
-          <BotonAgregar text="Agregar Producto" onClick={handleOpenModal} />
+          <BotonAgregar text="Agregar Producto" onClick={() => handleOpenModal(null)} />
         </Box>
       )}
 
@@ -90,7 +90,7 @@ const ProductosPage = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onConfirm={confirmarEliminacion}
-        id={productoEliminar?.nit}
+        id={productoEliminar?.codigo} // ✅ ahora usamos codigo
         title="Eliminar producto"
         message="¿Estás segura de que deseas eliminar el producto"
         itemName={productoEliminar?.nombre}
@@ -111,7 +111,7 @@ const ProductosPage = () => {
           }}
         >
           <ProductoForm
-            key={productoEditando?.id || "nuevo"}
+            key={productoEditando?.codigo || "nuevo"}
             onClose={handleCloseModal}
             initialData={productoEditando}
           />

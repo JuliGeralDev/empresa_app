@@ -3,7 +3,6 @@ import productosIniciales from "../../data/producto/productos.json";
 
 const STORAGE_KEY = "productos";
 
-// Cargar desde localStorage o JSON inicial
 const cargarProductos = () => {
   const guardados = localStorage.getItem(STORAGE_KEY);
   if (guardados) return JSON.parse(guardados);
@@ -24,19 +23,17 @@ const productoSlice = createSlice({
       state.lista.push(action.payload);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.lista));
     },
-
     editarProducto: (state, action) => {
-      const productoActualizado = action.payload;
-      const index = state.lista.findIndex(p => p.id === productoActualizado.id);
+      const actualizado = action.payload;
+      const index = state.lista.findIndex(p => p.codigo === actualizado.codigo);
       if (index !== -1) {
-        state.lista[index] = productoActualizado;
+        state.lista[index] = actualizado;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.lista));
       }
     },
-
     eliminarProducto: (state, action) => {
-      const id = action.payload;
-      state.lista = state.lista.filter(p => p.id !== id);
+      const codigo = action.payload;
+      state.lista = state.lista.filter(p => p.codigo !== codigo);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.lista));
     },
   },

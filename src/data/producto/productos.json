@@ -1,6 +1,5 @@
 [
   {
-    "id": "producto-1",
     "codigo": "P001",
     "nombre": "GPS Satelital",
     "caracteristicas": "Pantalla de 5 pulgadas, recarga solar",
@@ -12,7 +11,6 @@
     "empresa": "900123456"
   },
   {
-    "id": "producto-2",
     "codigo": "P002",
     "nombre": "Silla para bebé",
     "caracteristicas": "Norma europea, ajustable a 3 posiciones",
@@ -24,7 +22,6 @@
     "empresa": "900123456"
   },
   {
-    "id": "producto-3",
     "codigo": "P003",
     "nombre": "WiFi Portátil",
     "caracteristicas": "4G LTE, 10 usuarios simultáneos",
